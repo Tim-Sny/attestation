@@ -2,8 +2,13 @@ package student.snytkin.attestation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.PersistableBundle
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomnavigation.BottomNavigationView
+
+private const val LAST_SELECTED_MENU_ITEM = "LAST_SELECTED_MENU_ITEM"
 
 class MainActivity : AppCompatActivity() {
 
@@ -25,10 +30,15 @@ class MainActivity : AppCompatActivity() {
             replaceFragment(fragment!!)
             true
         }
-        bottomNavigation.selectedItemId = R.id.fragment_main
+        bottomNavigation.selectedItemId = savedInstanceState?.getInt(LAST_SELECTED_MENU_ITEM) ?: R.id.fragment_main
     }
 
-    fun replaceFragment(fragment: Fragment) {
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt(LAST_SELECTED_MENU_ITEM, bottomNavigation.selectedItemId)
+    }
+
+    private fun replaceFragment(fragment: Fragment) {
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.fragment_container, fragment)

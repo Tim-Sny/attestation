@@ -1,60 +1,86 @@
 package student.snytkin.attestation
 
+import android.R.attr
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.DividerItemDecoration
+import android.R.attr.inset
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-//private const val ARG_PARAM1 = "param1"
-//private const val ARG_PARAM2 = "param2"
-//
-///**
-// * A simple [Fragment] subclass.
-// * Use the [ServiceFragment.newInstance] factory method to
-// * create an instance of this fragment.
-// */
+import android.R.attr.divider
+
+import android.graphics.drawable.InsetDrawable
+import android.graphics.drawable.Drawable
+import android.content.res.TypedArray
+
+
 class ServiceFragment : Fragment() {
-//    // TODO: Rename and change types of parameters
-//    private var param1: String? = null
-//    private var param2: String? = null
-//
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        arguments?.let {
-//            param1 = it.getString(ARG_PARAM1)
-//            param2 = it.getString(ARG_PARAM2)
-//        }
-//    }
+
+    lateinit var serviceRecyclerView: RecyclerView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_service, container, false)
         // Inflate the layout for this fragment
+        val view = inflater.inflate(R.layout.fragment_service, container, false)
+
+        val serviceList: List<Service> = listOf(
+            Service(
+                "ПОДКАЧКА",
+                "Подкачка работником шиномонтажа одного колеса до указанного давления",
+                "30 руб.",
+                R.drawable.p0001
+            ),
+            Service(
+                "ХРАНЕНИЕ",
+                "Хранение сезонных покрышек на складе",
+                "100 руб./месяц",
+                R.drawable.p0002
+            ),
+            Service(
+                "ПРОКОЛЫ",
+                "Устранение проколов и мелких порезов с перебортовкой колеса и балансировкой",
+                "600 руб.",
+                R.drawable.p0003
+            ),
+            Service(
+                "ПРАВКА ДИСКОВ",
+                "Исправление гнутых дисков, прокатка дисков, устранение вмятин",
+                "1200 руб.",
+                R.drawable.p0004
+            ),
+            Service(
+                "ДИАГНОСТИКА",
+                "Диагностика состояния покрышек и нипелей, проверка балансировки",
+                "50 руб.",
+                R.drawable.p0005
+            ),
+            Service(
+                "БАЛАНСИРОВКА",
+                "Балансровка колёс на сверхточном оборудовании компании KRUTOTEN с двухгодовой гарантией",
+                "от 300 руб.",
+                R.drawable.p0006
+            ),
+            Service(
+                "ВЫЕЗД",
+                "Мобильный шиномонтажный пукт готов выехать по указанному адресу и оказать помощь на месте",
+                "от 1500 руб.",
+                R.drawable.p0007
+            )
+        )
+
+        serviceRecyclerView = view.findViewById<RecyclerView>(R.id.service_recycle_view)
+        serviceRecyclerView.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        serviceRecyclerView.adapter = ServiceAdapter(serviceList)
+
+
         return view
     }
-
-//    companion object {
-//        /**
-//         * Use this factory method to create a new instance of
-//         * this fragment using the provided parameters.
-//         *
-//         * @param param1 Parameter 1.
-//         * @param param2 Parameter 2.
-//         * @return A new instance of fragment ServiceFragment.
-//         */
-//        // TODO: Rename and change types and number of parameters
-//        @JvmStatic
-//        fun newInstance(param1: String, param2: String) =
-//            ServiceFragment().apply {
-//                arguments = Bundle().apply {
-//                    putString(ARG_PARAM1, param1)
-//                    putString(ARG_PARAM2, param2)
-//                }
-//            }
-//    }
 }
