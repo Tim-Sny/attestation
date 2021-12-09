@@ -32,11 +32,6 @@ class MainFragment : Fragment() {
             val link = Uri.parse("tel:+75555555555")
             val callIntent = Intent(Intent.ACTION_CALL, link)
             startActivity(callIntent)
-
-//            val link = Uri.parse("call:+75555555555")
-//            val intent = Intent(Intent.ACTION_CALL, link)
-//            context?.startActivity(intent)
-
         }
 
         return view
